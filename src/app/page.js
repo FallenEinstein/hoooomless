@@ -52,6 +52,13 @@ function DashboardContent({ time }) {
 
   const handleAnalyze = async () => {
     if (!file) return;
+
+    // Vercel Serverless Function 4.5MB Payload Limit Fix
+    if (file.size > 4.5 * 1024 * 1024) {
+      alert("Vercel 무료 플랜의 제한으로 인해 4.5MB 이상의 파일은 업로드할 수 없습니다. 더 작은 파일을 선택해 주세요! 🍎💧");
+      return;
+    }
+
     setStep(2);
     try {
       const formData = new FormData();
